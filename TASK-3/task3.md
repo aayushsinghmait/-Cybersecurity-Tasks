@@ -85,5 +85,5 @@ BYTE{Buff3r_OverFl0w_k3_N45he}               |
 
 Final Answer:
 ----------------------------------------------
-|   BYTE{Buff3r_OverFl0w_k3_N45he}           |
+   BYTE{Buff3r_OverFl0w_k3_N45he}           
 ----------------------------------------------
